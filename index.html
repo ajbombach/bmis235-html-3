@@ -36,7 +36,183 @@
      This box is empty on purpose. In Part 7 you paste an interactive
      graphic BETWEEN the opening <div> and the closing </div> below.
      ===================================================================== -->
-<div class="showcase"></div>
+<div class="
+  <!-- HTML: Creates the interactive food showcase -->
+<div class="showcase-food">
+  <div class="showcase-header">
+    <h2>My Favorite Foods</h2>
+    <span>Click a food to discover a fun fact!</span>
+  </div>
+
+  <div class="showcase-arena" id="foodArena">
+    <button class="showcase-food-item" data-food="calzones">🥟 Calzones</button>
+    <button class="showcase-food-item" data-food="cannolis">🍰 Cannolis</button>
+    <button class="showcase-food-item" data-food="mikeikes">🍬 Mike & Ikes</button>
+  </div>
+
+  <div class="showcase-fact" id="foodFact" aria-live="polite">
+    Select a food to reveal a fun fact!
+  </div>
+</div>
+
+<!-- CSS: Controls colors, layout, typography, and appearance -->
+<style>
+.showcase .showcase-food {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: #cccccc;
+  color: #333333;
+  font-family: "Al Nile", sans-serif;
+  padding: 20px;
+  border-radius: 16px;
+  height: 350px;
+  max-height: 450px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.showcase .showcase-header {
+  text-align: center;
+  z-index: 2;
+}
+
+.showcase .showcase-header h2 {
+  margin: 0 0 5px;
+  font-size: 27px;
+  color: #557fa9;
+}
+
+.showcase .showcase-header span {
+  font-size: 14px;
+}
+
+.showcase .showcase-arena {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.showcase .showcase-food-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 12px 17px;
+  border: 2px solid #557fa9;
+  border-radius: 30px;
+  background: #f5f5f5;
+  color: #345a7b;
+  font-family: "Al Nile", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transition: background 0.2s, transform 0.2s;
+  touch-action: manipulation;
+}
+
+.showcase .showcase-food-item:hover {
+  background: #557fa9;
+  color: white;
+  transform: scale(1.1);
+}
+
+.showcase .showcase-food-item:focus-visible {
+  outline: 3px solid #345a7b;
+  outline-offset: 3px;
+}
+
+.showcase .showcase-fact {
+  width: 100%;
+  min-height: 55px;
+  box-sizing: border-box;
+  padding: 12px;
+  background: #557fa9;
+  color: white;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.4;
+}
+</style>
+
+<!-- JavaScript: Makes foods bounce and displays facts when clicked -->
+<script>
+(function () {
+  const arena = document.getElementById("foodArena");
+  const factBox = document.getElementById("foodFact");
+  const foods = arena.querySelectorAll(".showcase-food-item");
+
+  const facts = {
+    calzones: "🥟 Fun Fact: Calzones originated in Naples, Italy, and their name means 'trousers' in Italian!",
+    cannolis: "🍰 Fun Fact: Cannoli originated in Sicily, Italy. Traditionally, they're filled with sweet ricotta cheese!",
+    mikeikes: "🍬 Fun Fact: Mike and Ike candies were first introduced in 1940 and come in a variety of fruity flavors!"
+  };
+
+  const items = [];
+
+  foods.forEach((food, index) => {
+    items.push({
+      element: food,
+      x: 15 + index * 65,
+      y: 15 + index * 40,
+      vx: 1.2 + index * 0.4,
+      vy: 1.1 + index * 0.3,
+      paused: false
+    });
+
+    food.addEventListener("click", function () {
+      factBox.textContent = facts[food.dataset.food];
+    });
+  });
+
+  function animate() {
+    const width = arena.clientWidth;
+    const height = arena.clientHeight;
+
+    items.forEach(item => {
+      if (item.paused) return;
+
+      const el = item.element;
+      const maxX = width - el.offsetWidth;
+      const maxY = height - el.offsetHeight;
+
+      item.x += item.vx;
+      item.y += item.vy;
+
+      if (item.x <= 0 || item.x >= maxX) {
+        item.vx *= -1;
+        item.x = Math.max(0, Math.min(item.x, maxX));
+      }
+
+      if (item.y <= 0 || item.y >= maxY) {
+        item.vy *= -1;
+        item.y = Math.max(0, Math.min(item.y, maxY));
+      }
+
+      el.style.left = item.x + "px";
+      el.style.top = item.y + "px";
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  items.forEach(item => {
+    item.element.addEventListener("click", function () {
+      item.paused = true;
+      setTimeout(() => {
+        item.paused = false;
+      }, 800);
+    });
+  });
+
+  animate();
+})();
+</script>
+  "></div>
 
 <!-- Footer: fill in your name -->
 <footer>Built by AJ Bombach &middot; BMIS 235</footer>
