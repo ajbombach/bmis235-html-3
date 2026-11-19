@@ -18,7 +18,7 @@ body {
 }
 
 /* the menu at the top of every page */
-av {
+nav {
     background-color: #557fa9;
     padding: 14px;
     text-align: center;
@@ -31,6 +31,7 @@ nav img {
     height: 50px;
     margin: 4px;
     vertical-align: middle;
+    border: 4px solid #557fa9;
 }
 
 /* no underline or border around the image links */
