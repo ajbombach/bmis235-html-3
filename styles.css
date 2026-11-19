@@ -10,16 +10,16 @@
    ===================================================================== */
 
 body {
-   font-family: "AL Nile", "Helvetica Neue", Arial, sans-serif;
-    background-color: #c4c4c4;
-    color: #3a6696;
+    font-family: "AL Nile", "Helvetica Neue", Arial, sans-serif;
+    background-color: #d0d0d0;
+    color: #557fa9;
     margin: 0;
     padding: 0 20px 40px 20px;
 }
 
 /* the menu at the top of every page */
 av {
-    background-color: #3a6696;
+    background-color: #557fa9;
     padding: 14px;
     text-align: center;
 }
@@ -34,12 +34,12 @@ nav img {
 }
 
 /* no underline or border around the image links */
-av a {
+nav a {
     text-decoration: none;
 }
 
 h1 {
-    color: #3a6696;
+    color: #557fa9;
     text-align: center;
     font-size: 40px;
 }
